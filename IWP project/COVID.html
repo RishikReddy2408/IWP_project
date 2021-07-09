@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Corona Virus Tracker" />
+  <title>Corona Virus Tracker</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+*{
+margin:0;
+padding: 0;
+box-sizing: border-box;
+}
+html{
+font-size: 10px;
+font-family:'Montserrat',sans-serif;
+scroll-behavior: smooth;
+}
+
+.container{
+min-height: 100vh;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center; 
+}
+#hero{
+background-image: url(covid.jpg);
+background-size: cover;
+background-position: top center;
+position: relative;
+z-index: 1;
+}
+#hero::after{
+content: '';
+position: absolute;
+left: 0;
+top:0;
+height: 100%;
+width:100%;
+background-color: black;
+opacity: .7;
+z-index: -1;
+}
+#hero .hero{
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 50pc;
+justify-content: 50px;
+}
+#hero h1{
+display:block;
+width: fit-content;
+font-size: 4rem;
+position: relative;
+color: transparent;
+animation: text_reveal 0.5s ease forwards;
+animation-delay: 1s;
+}
+#header{
+position: fixed;
+z-index: 1000;
+left: 0;
+top: 0;
+width: 100vw;
+height: auto;
+}
+#header .header{
+min-height: 8vh;
+background-color: rgba(31, 30,30,0.24);
+transition: .3s ease background-color;
+}
+#header .nav-bar{
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+height: 100%;
+max-width:1300px;
+padding: 0 10px;
+z-index: 100;
+}
+#header .nav-list ul{
+list-style: none;
+position: absolute;
+background-color: rgb(31, 30,30);
+width: 100vw;
+height: 100vh;
+left: 100%;
+top: 0;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 1;
+overflow-x: hidden;
+transition: .5s ease left;
+}
+#header .nav-list ul.active{
+left: 0%;
+}
+#header .nav-list ul a {
+font-size: 2.5rem;
+font-weight: 500;
+letter-spacing: .2rem;
+text-decoration: none;
+color: white;
+text-transform: uppercase;
+padding: 20px;
+display: block;
+}
+#header .nav-list ul a::after{
+content: attr(data-after);
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%) scale(0);
+color: rgba(240, 248,255,0.021);
+font-size: 15rem;
+letter-spacing: 40px;
+z-index: -1;
+transition: .3s ease letter-spacing;
+}
+#header .nav-list ul li:hover a::after{
+transform: translate(-50%,-50%) scale(1);
+}
+#header .nav-list ul li:hover a{
+color: crimson;
+
+}
+#header .hamburger{
+height: 60px;
+width: 60px;
+display: inline-block;
+border: 3px solid white;
+border-radius: 50%;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 100;
+cursor: pointer;
+transform: scale(.8);
+margin-right: 20px;
+}
+#header .hamburger::after{
+position: absolute;
+content: '';
+height: 100%;
+width: 100%;
+border-radius: 50%;
+border:3px solid white;
+animation: hamburger-puls 1s ease infinite;
+}
+#header .hamburger .bar{
+height: 2px;
+width: 30px;
+position: relative;
+background-color: white;
+z-index: -1;
+}
+#header .hamburger .bar::after,
+#header .hamburger .bar::before{
+content: '';
+position: absolute;
+height: 100%;
+width: 100%;
+left: 0;
+background-color: white;
+transition: .3s ease;
+transition-property: top,bottom;
+}
+#header .hamburger.active .bar::before{
+bottom: 0;
+}
+#header .hamburger.active .bar::after{
+top: 0;
+}
+#header .hamburger .bar::after{
+top: 8px;
+}
+#header .hamburger .bar::before{
+bottom: 8px;
+}
+#header .hamburger.active .bar::before{
+bottom: 0;
+}
+#header .hamburger.active .bar::after{
+top: 0;
+}
+
+#hero h1:nth-child(1){
+animation-delay: 1s;
+}
+#hero h1:nth-child(2){
+animation-delay: 2s;
+}
+#hero h1:nth-child(3){
+animation-delay: 3s;
+}
+#hero h1:nth-child(4){
+animation-delay: 4s;
+}
+#hero h1 span{
+position: absolute;
+top: 0;
+left: 0;
+height: 100%;
+width: 0%;
+background-color: crimson;
+animation:text_reveal_box 1s ease;
+animation-delay: .3s;
+}
+#hero h1:nth-child(1) span{
+animation-delay: .5s;
+}
+#hero h1:nth-child(2) span{
+animation-delay: 1.5s;
+}
+#hero h1:nth-child(3) span{
+animation-delay: 2.5s;
+}
+#hero h1:nth-child(4) span{
+animation-delay: 3.5s;
+}
+#hero .cta{
+display: inline-block;
+padding: 10px 30px;
+color: wheat;
+background-color: transparent;
+border:2px solid crimson;
+font-size: 2rem;
+text-transform: uppercase;
+letter-spacing: .1rem;
+margin-top: 30px;
+transition: .3s ease;
+transition-property: background-color,color;
+
+}
+#hero .cta:hover{
+color:white;
+background-color: crimson;
+}
+
+.form-popup {
+height: 400px;
+display: none;
+position: fixed;
+top:200px; 
+left:35%; 
+border: 3px solid #f1f1f1;
+z-index: 9;
+background-color: white;
+}
+
+/* Add styles to the form container */
+.form-container {
+max-width: 300px;
+padding: 10px;
+background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+width: 100%;
+padding: 15px;
+margin: 5px 0 22px 0;
+border: none;
+background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+background-color: #ddd;
+outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+background-color: #4CAF50;
+color: white;
+padding: 16px 20px;
+border: none;
+cursor: pointer;
+width: 100%;
+
+margin-bottom:10px;
+opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+background-color: red;
+}
+
+
+
+.form-container .btn:hover, .open-button:hover {
+opacity: 1;
+}
+
+
+
+
+
+.brand h1{
+font-size: 3rem;
+text-transform: uppercase;
+color: white;
+}
+.brand h1 span{
+color:crimson;
+}
+#stats .stat-title{
+font-size: 4rem;
+font-weight: 300;
+color: black;
+margin-bottom: 10px;
+text-transform: uppercase;
+letter-spacing: .2rem;
+text-align: center;
+}
+#stats .stat-title span{
+color: crimson;
+}
+#blogs .blog-title{
+font-size: 4rem;
+font-weight: 300;
+color: black;
+margin-bottom: 10px;
+text-transform: uppercase;
+letter-spacing: .2rem;
+text-align: center;
+}
+#blogs .blog-title span{
+color: crimson;
+}
+#precautions .pre-title{
+font-size: 4rem;
+font-weight: 300;
+color: black;
+margin-bottom: 10px;
+text-transform: uppercase;
+letter-spacing: .2rem;
+text-align: center;
+z-index: 0;
+}
+#precautions .pre-title span{
+color: crimson;
+}
+#abc{
+border: 1px solid;
+border-color: #2F3030;
+border-radius: 10px;
+padding: 20px;
+background-color: #5F8EAA;
+width: 500px;
+margin-left: 40px;
+font-size: 14px;
+font-weight: bold;
+color: #292C2E;
+text-align: center;
+cursor: pointer;
+transition: 0.3s ease;
+}
+
+#uniquename {
+width: 50%;
+position:fixed;
+left:10%;
+padding: 20px 10px;
+text-align: center;
+background-color: lightblue;
+margin-top: 20px;
+}
+.qsn{
+display: flex;
+margin-left: 200px;
+margin-top: 50px;
+}
+
+#faqs .faq-title{
+font-size: 4rem;
+font-weight: 300;
+color: black;
+margin-bottom: 10px;
+text-transform: uppercase;
+letter-spacing: .2rem;
+text-align: center;
+}
+#faqs .faq-title span{
+color: crimson;
+}
+#contact .section-title{
+font-size: 4rem;
+font-weight: 300;
+color: black;
+margin-bottom: 10px;
+text-transform: uppercase;
+letter-spacing: .2rem;
+text-align: center;
+}
+#contact .section-title span{
+color: crimson;
+}
+#precautions .precautions{
+flex-direction: column;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+
+#precautions .pre-items{
+width: 400px;
+}
+#blogs .blog-items{
+width: 400px;
+}
+#blogs .blog-item{
+width: 80%;
+padding: 20px;
+text-align: center;
+border-radius: 10px;
+padding: 30px;
+margin: 30px;
+align-items: center;
+box-shadow: 0px 0px 18px 0 #0000002c;
+transition: .3s ease box-shadow;
+}
+#blogs .blog-item:hover{
+box-shadow: 0px 0px 5px 0 #0000002c;
+}
+#precautions .pre-item{
+width: 80%;
+padding: 20px;
+text-align: center;
+border-radius: 10px;
+padding: 30px;
+margin: 30px;
+align-items: center;
+box-shadow: 0px 0px 18px 0 #0000002c;
+transition: .3s ease box-shadow;
+}
+
+#precautions .pre-item:hover{
+box-shadow: 0px 0px 5px 0 #0000002c;   
+}
+
+#contact .contact{
+flex-direction: column;
+max-width: 1200px;
+margin: 0 auto;
+}
+#contact .contact-items{
+width: 400px;
+
+}
+#contact .contact-item{
+width: 80%;
+padding: 20px;
+text-align: center;
+border-radius: 10px;
+padding: 30px;
+margin: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+box-shadow: 0px 0px 18px 0 #0000002c;
+transition: .3s ease box-shadow;
+}
+#contact .contact-item:hover{
+box-shadow: 0px 0px 5px 0 #0000002c;
+
+}
+#contact .icon{
+width: 70px;
+margin: 0 auto;
+margin-bottom: 10px;
+}
+#precautions .precon{
+width: 70px;
+margin: 0 auto;
+margin-bottom: 10px;
+}
+#blogs .blogon{
+width: 70px;
+margin: 0 auto;
+margin-bottom: 10px;
+}
+#contact .contact-info h1{
+font-size: 2.5rem;
+font-weight: 500;
+margin-bottom: 5px;
+
+}
+#contact .contact-info h2{
+font-size: 1.3rem;
+line-height: 2rem;
+font-weight: 500;
+
+}
+#precautions .pre-info h2{
+font-size: 1.3rem;
+line-height: 2rem;
+font-weight: 1000;
+
+}
+#footer{
+background-image: linear-gradient(60deg,#29323c 0%,#485563 100%);
+}
+#footer .footer{
+min-height: 200px;
+flex-direction: column;
+padding-top: 50px;
+padding-bottom: 10px;
+}
+
+#footer h2{
+color: white;
+font-weight: 500;
+font-size: 1.8rem;
+letter-spacing: .1rem;
+margin-top: 10px;
+margin-bottom: 10px;
+}
+#footer .social-item{
+height: 50px;
+width: 50px;
+margin: 0 5px;
+}
+#footer .social-icon{
+display: flex;
+margin-bottom: 30px;
+}
+#footer .social-item img{
+filter:grayscale(1);
+transition: .3s ease filter;
+}
+#footer .social-item:hover img{
+filter: grayscale(0); 
+}
+#footer p{
+color: white;
+font-size: 1.3rem;
+}
+@keyframes text_reveal_box{
+50%{
+    width: 100%;
+    left: 0;
+}
+100%{
+    width: 0;
+    left: 100%;
+}
+}
+@keyframes text_reveal{
+100%{
+    color: white;
+
+}
+}
+@keyframes hamburger-puls{
+0%{
+    opacity: 1;
+    transform: scale(1);
+}
+100%{
+    opacity: 0;
+    transform:scale(1.4)
+}
+}
+
+@media only screen and (min-width:768px){
+.cta{
+    font-size: 2.5rem;
+    padding: 20px 60px;
+}
+h1.section-title{
+    font-size: 6rem;
+}
+#hero h1{
+    font-size: 5rem;
+}
+#contact .contact{
+    flex-direction: column;
+    padding: 100px 0;
+    align-items: center;
+    justify-content: center;
+    min-width: 20vh;
+}
+#Precautions{
+    margin-left: 100px;
+}
+#precautions .precautions{
+    flex-direction: column;
+    padding: 100px 0;
+    align-items: center;
+    justify-content: center;
+    min-width: 20vh;
+}
+#contact .contact-items{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin: 0;
+}
+#precautions .pre-items{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin: 0;
+}
+#blogs .blog-items{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin: 0;
+}
+#contact .contact-item{
+    margin:20px;
+    flex-direction: row;
+}
+#precautions .pre-item{
+    margin:20px;
+    flex-direction: row;
+}
+#blogs .blog-item{
+    margin:20px;
+    flex-direction: row;
+}
+#contact .contact-item .icon{
+    height: 100px;
+    width:100px;
+}
+#precautions .pre-item .precon{
+    height: 250px;
+    width:250px;
+}
+#blogs .blog-item .blogon{
+    height: 250px;
+    width:250px;
+}
+#contact .contact-item .contact-info{
+    width: 100%;
+    text-align: left;
+    padding-left: 20px;
+}
+#precautions .pre-item .pre-info{
+    width: 100%;
+    text-align: left;
+    padding-left: 20px;
+}
+#blogs .blog-item .blog-info{
+    width: 100%;
+    text-align: left;
+    padding-left: 20px;
+}
+
+#contact .contact-item .icon img{
+    object-fit: contain;
+}
+#precautions .pre-item .precon img{
+    object-fit: contain;
+}
+#blogs .blog-item .blogon img{
+    object-fit: contain;
+}
+
+}
+
+@media only screen and (min-width: 1200px){
+#header .hamburger{
+    display: none;
+}
+#header .nav-list ul{
+    position: initial;
+    display: block;
+    height: auto;
+    width: fit-content;
+    background-color: transparent;
+}
+#header .nav-list ul li{
+    display: inline-block;
+
+}
+#header .nav-list ul li a{
+    font-size: 1.8rem;
+}
+#header .nav-list ul a::after{
+    display: none;
+}
+}
+</style>
+
+<script>
+    const hamburger = document.querySelector('.header .nav-bar .nav-list .hamburger');
+const mobile_menu = document.querySelector('.header .nav-bar .nav-list ul');
+const header = document.querySelector('.header .container');
+
+hamburger.addEventListener('click',()=>{
+hamburger.classList.toggle('active');
+mobile_menu.classList.toggle('active');
+});
+
+document.addEventListener('scroll',()=>{
+var scroll_position = window.scrollY;
+if(scroll_position > 250){
+    header.style.backgroundColor = '#29323c';
+}
+else{
+    header.style.backgroundColor = 'transparent';
+}
+});
+menu_item.forEach((item) => {
+item.addEventListener('click',() => {
+    hamburger.classList.toggle('active');
+    mobile_menu.classList.toggle('active');
+});
+});
+function openForm() {
+document.getElementById("myForm").style.display = "block";
+}
+function closeloginForm() {
+document.getElementById("myForm").style.display = "none";
+} 
+
+function opensignup() {
+document.getElementById("signupForm").style.display = "block";
+}
+function closesignupForm() {
+document.getElementById("signupForm").style.display = "none";
+} 
+</script>
+</head>
+
+<body>
+  <section id="header">
+    <div class="header cotainer">
+        <div class="nav-bar">
+            <div class="nav-list">
+                <div class="hamburger"><div class="bar"></div></div>
+                <ul>
+                    <li><a href="#hero" data-after="Home">Home</a></li>
+                    <li><a href="#root" data-after="Statistics">Statistics</a></li>
+                    <li><a href="#precautions" data-after="Precautions">Precautions</a></li>
+                    <li><a href="#blogs" data-after="Blogs">Blogs</a></li>
+                    <li><a href="#faqs" data-after="FAQs">FAQs</a></li>
+                    <li><a href="#contact" data-after="Contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section id="hero">
+    <div class="hero container">
+        <div>
+            <h1>Hello,<span></span></h1>
+            <h1>welcome to <span></span></h1>
+            <h1>our<span></span></h1>
+            <h1>Website<span></span></h1>
+            <button class="cta" onclick="openForm()">Login</button>
+            <button class="cta" onclick="opensignup()">Signup</button>
+        </div>
+    </div>
+</section>
+<div class="form-popup" id="myForm">
+    <form action="/action_page.php" class="form-container">
+      <center><h1>Login</h1></center>
+      <br><br>
+      <label for="text"><b>Username</b></label>
+      <input type="text" placeholder="Enter username" name="username" required>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+  
+      <button type="submit" class="btn">Login</button>
+      <button type="button" class="btn cancel" onclick="closeloginForm()">Close</button>
+    </form>
+  </div>
+  <div style="background-color: red;">
+    <br>
+    <br>
+    <br>    
+  </div>
+  
+  <div id="root"></div>
+
+  <br>
+  <br>
+  <div style="background-color: aquamarine;">
+    <br>
+    <br>
+    <br>    
+  </div>
+
+
+  <div class="form-popup" id="signupForm">
+    <form action="/action_page.php" class="form-container">
+      <center><h1>Sign Up</h1></center>
+
+
+<label for="email"><b>Email</b></label>
+<input type="text" placeholder="Enter Email" name="email" required>
+
+<label for="psw"><b>Password</b></label>
+<input type="password" placeholder="Enter Password" name="psw" required>
+
+<label for="psw-repeat"><b>Repeat Password</b></label>
+<input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+
+  <button type="submit" class="btn">Signup</button>
+ <button type="button" class="btn cancel" onclick="closesignupForm()">Close</button>
+
+    </form>
+  </div>
+
+
+<!-- stats section-->
+<!--<section id="stats">
+    <div class="stats container">
+        <div class="stat-top">
+           <div><h1 class="stat-title">Stat<span>i</span>stics</h1></div>
+           <p>Hello This is under Stats Section</p>
+        </div>
+        <div class="stat-bottom">
+        <div class="stats-item">
+            <div class="icon">
+                
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+</section> -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<section id="precautions">
+    <div class="precontainer">
+            
+            <div><h1 class="pre-title">Pre<span>c</span>auti<span>o</span>ns</h1></div>
+            <div class="pre-items">
+                <div class="pre-item">
+                    <div class="precon"><img src="pr1.png" style="width:100%"/></div>
+                    <div class="pre-info">
+                        <h2>Wash your hands frequently using soap and water or an alcohol-based hand rub.</h2>
+                    </div>
+                </div>
+                <div class="pre-item">
+                    <div class="precon"><img src="pr2.png" width="100%"/></div>
+                    <div class="pre-info">
+                        <h2>Cover mouth and nose with flexed elbow or tissue when coughing or sneezing. Dispose used tissue immediately.</h2>
+                    </div>
+                </div>
+                <div class="pre-item">
+                    <div class="precon"><img src="pr3.png" width="100%"/></div>
+                    <div class="pre-info">
+                        <h2>Avoid close contact with anyone who has cold or flu-like symptoms.</h2>
+                    </div>
+                </div>
+                <div class="pre-item">
+                    <div class="precon"><img src="pr4.png" width="100%"/></div>
+                    <div class="pre-info">
+                        <h2>Seek medical care early if you or your child has a fever, cough or difficulty breathing.</h2>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<section id="blogs">
+    <div class="blogs container">
+        <div class="blog-top">
+           <div><h1 class="blog-title">Bl<span>o</span>gs</h1></div>
+           <div class="blog-items">
+            <div class="blog-item">
+                <div class="blogon">
+                <img src="blog1.jpg" width="100%" usemap="#workmap1"/>
+                <map name="workmap1">
+                <area shape="rect" coords="1,1,250,170" alt="cab" href="https://www.unicef.org/coronavirus/covid-19/">
+                </map>
+            </div>
+                <div class="blog-info">
+                    <h2>Coronavirus disease (COVID-19)
+
+                        What you need to know about th virus to protect you and your family</h2>
+                </div><br><br><br><br>
+                <p><a style="text-align: left;float: left; " href="https://www.unicef.org/coronavirus/covid-19/"> >>Visit the site</a></p>
+            </div>
+            <div class="blog-item">
+                <div class="blogon">
+                <img src="blog2.jpg" width="100%" usemap="#workmap2"/>
+                <map name="workmap2">
+                <area shape="rect" coords="1,1,250,170" alt="cab" href="https://www.unicef.org/coronavirus/7-ways-employers-can-support-working-parents-during-coronavirus-disease-covid-19/">
+                </map>
+            </div>
+                <div class="blog-info">
+                    <h2>COVID-19 outbreak: Ho employers can support working parents
+
+                        Children around the world need support from their parents right now. And parents need support</h2>                        
+                </div><br><br>
+                <p><a style="text-align: left;float: left; " href="https://www.unicef.org/coronavirus/7-ways-employers-can-support-working-parents-during-coronavirus-disease-covid-19/"> >>Visit the site</a></p>
+            </div>
+            <div class="blog-item">
+                <div class="blogon">
+                <img src="blog3.jpg" width="100%" usemap="#workmap3"/>
+                <map name="workmap3">
+                <area shape="rect" coords="1,1,250,170" alt="cab" href="https://www.unicef.org/coronavirus/6-ways-parents-can-support-their-kids-through-coronavirus-covid-19/">
+                </map>
+            </div>
+                <div class="blog-info">
+                    <h2>6 ways parents can support kids through the coronavirus
+
+                        A psychologist's advice on how to help your children deal with the many emotions they may be experiencing now</h2>
+                </div><br><br><br><br>
+                <p><a style="text-align: left;float: left; " href="https://www.unicef.org/coronavirus/6-ways-parents-can-support-their-kids-through-coronavirus-covid-19/"> >>Visit the site</a></p>
+            </div>
+            <div class="blog-item">
+                <div class="blogon">
+                <img src="blog4.jpg" width="100%" usemap="#workmap4"/>
+                <map name="workmap4">
+                <area shape="rect" coords="1,1,250,170" alt="cab" href="https://www.unicef.org/coronavirus/how-teenagers-can-protect-their-mental-health-during-coronavirus-covid-19/">
+                </map>
+            </div>
+                <div class="blog-info">
+                    <h2>How teens can protect their mental health during coronavirus
+
+                        strategies for teens facing a new 6 (temporary) normal</h2>
+                </div><br><br><br><br>
+                <p><a style="text-align: left;float: left; " href="https://www.unicef.org/coronavirus/how-teenagers-can-protect-their-mental-health-during-coronavirus-covid-19/"> >>Visit the site</a></p>
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<section id="faqs">
+    <div class="faq-top">
+       <div> <h1 class="faq-title">F<span>A</span>Qs</h1></div>
+    </div>
+    <div class="qsn">
+      <a id="abc">How does the COVID-19 virus spread?</a>
+      <a id="abc">What are the symptoms of coronavirus?</a>
+    </div>
+    <div class="qsn">
+      <a id="abc">How can I avoid the risk of infection?</a>
+      <a id="abc">Can the virus that causes COVID-19 be transmitted through the air? </a>
+    </div>
+    <div class="qsn">
+      <a id="abc">Can I catch COVID-19 from the feces of someone with the disease? </a>
+      <a id="abc">Can I catch COVID-19 from the feces of someone with the disease?</a>
+    </div>
+    <div class="qsn">
+      <a id="abc">Is it safe to receive a package from any area where COVID-19 has
+        been reported?</a>
+      <a id="abc">Is there anything I should not do?</a>
+    </div>
+   
+</section>
+
+<section id="contact">
+    <div class="contact container">
+        <div><h1 class="section-title">Contact<span>info</span></h1></div>
+        <div class="contact-items">
+            <div class="contact-item">
+                <div class="icon"><img src="https://img.icons8.com/dusk/64/000000/phone-disconnected.png"/></div>
+                <div class="contact-info">
+                    <h1>Phone</h1>
+                    <h2>+1 234 123 1234</h2>
+                    <h2>+1 234 123 1234</h2>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="icon"><img src="https://img.icons8.com/bubbles/50/000000/email.png"/></div>
+                <div class="contact-info">
+                    <h1>Email</h1>
+                    <h2>info@gmail.com</h2>
+                    <h2>help@gmail.com</h2>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="icon"><img src="https://img.icons8.com/nolan/64/order-delivered.png"/></div>
+                <div class="contact-info">
+                    <h1>Address</h1>
+                    <h2>India,Tamilnadu,vellore</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="footer">
+    <div class="footer container">
+        <div class="brand"><h1><span>The</span>End</h1></div>
+        <h2>Complete Web Page</h2>
+        <div class="social-icon">
+            <div class="social-item">
+                <a href="#"><img src="https://img.icons8.com/cute-clipart/64/000000/facebook-new.png"/></a>
+
+            </div>
+            <div class="social-item">
+                <a href="#"><img src="https://img.icons8.com/cute-clipart/64/000000/twitter.png"/></a>
+                
+            </div>
+            <div class="social-item">
+                <a href="#"><img src="https://img.icons8.com/cute-clipart/64/000000/instagram-new.png"/></a>
+                
+            </div>
+        </div>
+        <p>Copyright  @ 2020 All rights reserved</p>
+    </div>
+</section>
+
+</body>
+
+</html>
